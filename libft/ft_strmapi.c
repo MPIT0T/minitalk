@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:06:54 by mpitot            #+#    #+#             */
-/*   Updated: 2024/01/26 17:42:23 by mpitot           ###   ########.fr       */
+/*   Created: 2023/11/09 12:18:30 by mpitot            #+#    #+#             */
+/*   Updated: 2023/11/09 12:18:51 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# define SLEEP_TIME 10000
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	size_t	i;
+	char	*new;
 
-# include "libft/libft.h"
-# include "printf/ft_printf.h"
-# include <unistd.h>
-# include <time.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <stdio.h>		//TODO remove
-
-
-#endif
+	if (!s)
+		return (NULL);
+	new = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		new[i] = (*f)(i, s[i]);
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
+}

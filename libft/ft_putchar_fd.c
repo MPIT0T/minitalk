@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:06:54 by mpitot            #+#    #+#             */
-/*   Updated: 2024/01/26 17:42:23 by mpitot           ###   ########.fr       */
+/*   Created: 2023/11/08 13:59:51 by mpitot            #+#    #+#             */
+/*   Updated: 2023/11/08 17:30:01 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# define SLEEP_TIME 10000
-
-# include "libft/libft.h"
-# include "printf/ft_printf.h"
-# include <unistd.h>
-# include <time.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <stdio.h>		//TODO remove
-
-
-#endif
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}

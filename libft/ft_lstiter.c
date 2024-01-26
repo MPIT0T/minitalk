@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:06:54 by mpitot            #+#    #+#             */
-/*   Updated: 2024/01/26 17:42:23 by mpitot           ###   ########.fr       */
+/*   Created: 2023/11/13 16:54:25 by mpitot            #+#    #+#             */
+/*   Updated: 2023/11/13 16:58:46 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# define SLEEP_TIME 10000
+void	ft_lstiter(t_list *lst, void (*f)(void *))
+{
+	t_list	*temp;
 
-# include "libft/libft.h"
-# include "printf/ft_printf.h"
-# include <unistd.h>
-# include <time.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <stdio.h>		//TODO remove
-
-
-#endif
+	if (!lst)
+		return ;
+	temp = lst;
+	while (temp)
+	{
+		(*f)(temp->content);
+		temp = temp->next;
+	}
+}

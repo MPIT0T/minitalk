@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:06:54 by mpitot            #+#    #+#             */
-/*   Updated: 2024/01/26 17:42:23 by mpitot           ###   ########.fr       */
+/*   Created: 2023/11/07 17:10:19 by mpitot            #+#    #+#             */
+/*   Updated: 2023/11/08 17:29:56 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
-
-# define SLEEP_TIME 10000
-
-# include "libft/libft.h"
-# include "printf/ft_printf.h"
-# include <unistd.h>
-# include <time.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <stdio.h>		//TODO remove
-
-
-#endif
+int	ft_isprint(int c)
+{
+	if (c >= 32 && c <= 126)
+		return (1);
+	return (0);
+}

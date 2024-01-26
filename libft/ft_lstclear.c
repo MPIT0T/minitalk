@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:06:54 by mpitot            #+#    #+#             */
-/*   Updated: 2024/01/26 17:42:23 by mpitot           ###   ########.fr       */
+/*   Created: 2023/11/11 12:57:58 by mpitot            #+#    #+#             */
+/*   Updated: 2023/11/11 19:46:53 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# define SLEEP_TIME 10000
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*temp;
 
-# include "libft/libft.h"
-# include "printf/ft_printf.h"
-# include <unistd.h>
-# include <time.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <stdio.h>		//TODO remove
-
-
-#endif
+	while (*lst)
+	{
+		temp = ((*lst)->next);
+		ft_lstdelone(*lst, del);
+		*lst = temp;
+	}
+}
