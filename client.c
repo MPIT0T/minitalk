@@ -6,7 +6,7 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:04:56 by mpitot            #+#    #+#             */
-/*   Updated: 2024/01/26 18:06:20 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/01/27 22:21:02 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,19 @@ void	ft_kill_zero(char c, int pid)
 	}
 }
 
-void	ft_send(char *str, int pid)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-	{
-		ft_kill_zero(str[i], pid);
-		ft_convert(str[i++], pid);
-	}
-	ft_kill_zero(0, pid);
-}
-
 int	main(int argc, char **argv)
 {
 	int		serv_pid;
+	size_t	i;
 
 	if (argc != 3)
 		return (1);
 	serv_pid = ft_atoi(argv[1]);
-	ft_send(argv[2], serv_pid);
+	i = 0;
+	while (argv[2][i])
+	{
+		ft_kill_zero(argv[2][i], serv_pid);
+		ft_convert(argv[2][i++], serv_pid);
+	}
+	ft_kill_zero(0, serv_pid);
 }
