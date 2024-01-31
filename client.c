@@ -6,7 +6,7 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:04:56 by mpitot            #+#    #+#             */
-/*   Updated: 2024/01/27 22:21:02 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/01/31 19:16:36 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,5 @@ int	main(int argc, char **argv)
 		ft_convert(argv[2][i++], serv_pid);
 	}
 	ft_kill_zero(0, serv_pid);
+	usleep(SLEEP_TIME);
 }

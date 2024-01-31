@@ -6,7 +6,7 @@
 #    By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 16:13:23 by mpitot            #+#    #+#              #
-#    Updated: 2024/01/26 16:41:09 by mpitot           ###   ########.fr        #
+#    Updated: 2024/01/31 18:59:12 by mpitot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJ_SERV	=	${SRC_SERV:.c=.o}
 
 OBJ_CLN		=	${SRC_CLN:.c=.o}
 
-HEADER		=	project.h
+HEADER		=	minitalk.h
 
 SERVER		=	server
 
@@ -45,12 +45,12 @@ all: ${CLIENT} ${SERVER}
 %.o:%.c  ${HEADER} libft/libft.h
 	${CC} ${FLAGS} -c $< -o $@
 
-${CLIENT}: ${OBJ_CLN} Makefile
+${CLIENT}: ${OBJ_CLN} Makefile ${HEADER}
 	make -C ./libft
 	make -C ./printf
 	${CC} ${FLAGS} ${OBJ_CLN} -o ${CLIENT} -L./libft -lft -L./printf -lftprintf
 
-${SERVER}: ${OBJ_SERV} Makefile
+${SERVER}: ${OBJ_SERV} Makefile ${HEADER}
 	make -C ./libft
 	make -C ./printf
 	${CC} ${FLAGS} ${OBJ_SERV} -o ${SERVER} -L./libft -lft -L./printf -lftprintf
