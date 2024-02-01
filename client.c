@@ -6,7 +6,7 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:04:56 by mpitot            #+#    #+#             */
-/*   Updated: 2024/01/31 19:16:36 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/01 17:13:01 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,34 @@ void	ft_convert(char c, int pid)
 		if (c == 0)
 		{
 			kill(pid, SIGUSR1);
-			usleep(SLEEP_TIME);
+			while (1)
+			{
+				if (g_received)
+					break ;
+			}
+			g_received = false;
+			usleep(1000);
 		}
 		if (c == 1)
 		{
 			kill(pid, SIGUSR2);
-			usleep(SLEEP_TIME);
+			while (1)
+			{
+				if (g_received)
+					break ;
+			}
+			g_received = false;
+			usleep(1000);
 		}
+		return ;
 	}
-	else
-	{
-		ft_convert(c / 2, pid);
-		ft_convert(c % 2, pid);
-	}
+	ft_convert(c / 2, pid);
+	ft_convert(c % 2, pid);
 }
 
 void	ft_kill_zero(char c, int pid)
 {
-	int	i;
+	int		i;
 
 	i = 7;
 	while (i >= 0)
@@ -55,7 +65,13 @@ void	ft_kill_zero(char c, int pid)
 		if (ft_power(2, i) > c)
 		{
 			kill(pid, SIGUSR1);
-			usleep(SLEEP_TIME);
+			while (1)
+			{
+				if (g_received)
+					break ;
+			}
+			g_received = false;
+			usleep(1000);
 		}
 		else
 			return ;
@@ -63,13 +79,33 @@ void	ft_kill_zero(char c, int pid)
 	}
 }
 
+void	handle_sig(int sig)
+{
+	if (sig == SIGUSR1)
+	{
+		//ft_printf("received\n");
+		g_received = true;
+		return ;
+	}
+	if (sig == SIGUSR2)
+	{
+		ft_printf("Message transmitted succesfully\n");
+		exit(0);
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	int		serv_pid;
-	size_t	i;
+	int					serv_pid;
+	size_t				i;
+	struct sigaction	action;
 
 	if (argc != 3)
 		return (1);
+	g_received = false;
+	action.sa_handler = &handle_sig;
+	sigaction(SIGUSR1, &action, NULL);
+	sigaction(SIGUSR2, &action, NULL);
 	serv_pid = ft_atoi(argv[1]);
 	i = 0;
 	while (argv[2][i])
