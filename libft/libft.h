@@ -6,7 +6,7 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 13:27:53 by mpitot            #+#    #+#             */
-/*   Updated: 2023/11/13 17:03:01 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/01/29 14:40:14 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
+# include <limits.h>
+# include <stdarg.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
 
 typedef struct s_list
 {
@@ -51,6 +57,7 @@ void	ft_putendl_fd(const char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char const *s, int fd);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+void	ft_free_tab(char **tab);
 
 char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
@@ -69,5 +76,18 @@ t_list	*ft_lstnew(void *content);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
+
+/*FT_PRINTF*/
+int		ft_printf(const char *format, ...);
+
+int		ft_putchar(int c);
+int		ft_putstr(const char *s);
+int		ft_putnbr(int n);
+int		ft_putnbr_u(unsigned int n);
+int 	ft_putnbr_x(unsigned int nbr, char *base);
+int		ft_putmem(void *ptr);
+
+/*get_next_line*/
+char	*get_next_line(int fd);
 
 #endif

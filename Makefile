@@ -47,22 +47,18 @@ all: ${CLIENT} ${SERVER}
 
 ${CLIENT}: ${OBJ_CLN} Makefile ${HEADER}
 	make -C ./libft
-	make -C ./printf
-	${CC} ${FLAGS} ${OBJ_CLN} -o ${CLIENT} -L./libft -lft -L./printf -lftprintf
+	${CC} ${FLAGS} ${OBJ_CLN} -o ${CLIENT} -L./libft -lft
 
 ${SERVER}: ${OBJ_SERV} Makefile ${HEADER}
 	make -C ./libft
-	make -C ./printf
-	${CC} ${FLAGS} ${OBJ_SERV} -o ${SERVER} -L./libft -lft -L./printf -lftprintf
+	${CC} ${FLAGS} ${OBJ_SERV} -o ${SERVER} -L./libft -lft
 
 clean:
 	make clean -C ./libft
-	make clean -C ./printf
 	rm -f ${OBJ_CLN} ${OBJ_SERV}
 
 fclean: clean
 	make fclean -C ./libft
-	make fclean -C ./printf
 	rm -f ${CLIENT} ${SERVER}
 
 re: fclean all

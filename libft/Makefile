@@ -6,7 +6,7 @@
 #    By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 14:24:49 by mpitot            #+#    #+#              #
-#    Updated: 2023/11/14 14:24:49 by mpitot           ###   ########.fr        #
+#    Updated: 2024/01/29 14:40:14 by mpitot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,10 @@ SRCS	=	ft_atoi.c		\
 			ft_strtrim.c	\
 			ft_substr.c		\
 			ft_tolower.c	\
-			ft_toupper.c
+			ft_toupper.c	\
+			ft_printf.c		\
+			ft_printf_utils.c\
+			get_next_line.c
 
 BNS		=	ft_lstadd_back.c	\
 			ft_lstadd_front.c	\

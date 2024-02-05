@@ -6,11 +6,44 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 15:16:37 by mpitot            #+#    #+#             */
-/*   Updated: 2023/12/19 15:16:37 by mpitot           ###   ########.fr       */
+/*   Updated: 2023/12/22 12:57:53 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
+
+static int	ft_recurs(uintptr_t n, const char *base)
+{
+	int		x;
+	int 	y;
+
+	if (n < 16)
+		return (ft_putchar(base[n]));
+	x = ft_recurs(n / 16, base);
+	if (x == -1)
+		return (-1);
+	y = ft_putchar(base[n % 16]);
+	if (y == -1)
+		return (-1);
+	return (x + y);
+}
+
+int		ft_putmem(void *ptr)
+{
+	int		x;
+	int 	y;
+
+	if (!ptr)
+		return (ft_putstr("(nil)"));
+	x = ft_putstr("0x");
+	if (x == -1)
+		return (-1);
+	y = ft_recurs(((uintptr_t) ptr), "0123456789abcdef");
+	if (y == -1)
+		return (-1);
+	return (x + y);
+}
+
 
 static int	ft_convert(char c, va_list args)
 {
@@ -35,13 +68,15 @@ static int	ft_convert(char c, va_list args)
 	return (ft_putchar('%') + ft_putchar(c));
 }
 
-int	ft_printf(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
 	va_list	args;
 	size_t	i;
 	int		res;
 	int		temp;
 
+	if (!format || write(1, 0, 0) == -1)
+		return (-1);
 	va_start(args, format);
 	i = 0;
 	res = 0;
