@@ -6,7 +6,7 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 15:16:37 by mpitot            #+#    #+#             */
-/*   Updated: 2023/12/22 12:57:53 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/06 20:57:48 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_recurs(uintptr_t n, const char *base)
 {
 	int		x;
-	int 	y;
+	int		y;
 
 	if (n < 16)
 		return (ft_putchar(base[n]));
@@ -28,10 +28,10 @@ static int	ft_recurs(uintptr_t n, const char *base)
 	return (x + y);
 }
 
-int		ft_putmem(void *ptr)
+int	ft_putmem(void *ptr)
 {
 	int		x;
-	int 	y;
+	int		y;
 
 	if (!ptr)
 		return (ft_putstr("(nil)"));
@@ -43,7 +43,6 @@ int		ft_putmem(void *ptr)
 		return (-1);
 	return (x + y);
 }
-
 
 static int	ft_convert(char c, va_list args)
 {
@@ -68,7 +67,7 @@ static int	ft_convert(char c, va_list args)
 	return (ft_putchar('%') + ft_putchar(c));
 }
 
-int		ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	size_t	i;

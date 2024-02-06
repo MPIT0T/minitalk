@@ -6,37 +6,37 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:35:26 by mpitot            #+#    #+#             */
-/*   Updated: 2024/01/29 14:35:26 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/06 20:58:35 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_putchar(int c)
+int	ft_putchar(int c)
 {
 	return ((int) write(1, &c, 1));
 }
 
-int		ft_putnbr_u(unsigned int n)
+int	ft_putnbr_u(unsigned int n)
 {
 	int		x;
-	int 	y;
+	int		y;
 
 	if (n < 10)
 		return (ft_putchar((int) n + 48));
 	x = ft_putnbr_u(n / 10);
 	if (x == -1)
 		return (-1);
-	y = ft_putchar(((int) (n % 10) + 48));
+	y = ft_putchar(((int)(n % 10) + 48));
 	if (y == -1)
 		return (-1);
 	return (x + y);
 }
 
-int		ft_putnbr(int n)
+int	ft_putnbr(int n)
 {
 	int		x;
-	int 	y;
+	int		y;
 
 	if (n < 0)
 	{
@@ -52,10 +52,10 @@ int		ft_putnbr(int n)
 		return (ft_putnbr_u(n));
 }
 
-int		ft_putnbr_x(unsigned int nbr, char *base)
+int	ft_putnbr_x(unsigned int nbr, char *base)
 {
 	int		x;
-	int 	y;
+	int		y;
 
 	if (nbr < 16)
 		return (ft_putchar(base[nbr]));
@@ -68,7 +68,7 @@ int		ft_putnbr_x(unsigned int nbr, char *base)
 	return (x + y);
 }
 
-int		ft_putstr(const char *s)
+int	ft_putstr(const char *s)
 {
 	if (!s)
 		return (ft_putstr("(null)"));

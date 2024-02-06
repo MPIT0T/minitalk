@@ -89,7 +89,7 @@ void	ft_startup(int pid)
 
 int	main(void)
 {
-	int		pid;
+	int					pid;
 	struct sigaction	action;
 
 	pid = getpid();
@@ -99,7 +99,7 @@ int	main(void)
 	sigaction(SIGUSR1, &action, NULL);
 	sigaction(SIGUSR2, &action, NULL);
 	sigaction(SIGINT, &action, NULL);
-	while(1)
+	while (1)
 	{
 		pause();
 	}
