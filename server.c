@@ -6,7 +6,7 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:04:59 by mpitot            #+#    #+#             */
-/*   Updated: 2024/02/06 18:03:49 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/06 19:30:19 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,6 @@ int	ft_power(int nb, ssize_t power)
 		return (nb);
 	return (nb * ft_power(nb, power - 1));
 }
-/*
-
-static void	ft_free(int **tab)
-{
-	size_t	i;
-
-	i = 0;
-	while (tab[i])
-		free(tab[i]);
-	free(tab);
-}
-*/
 
 void	ft_print_bin(int *tab, int client_pid, int *reset)
 {
@@ -44,16 +32,17 @@ void	ft_print_bin(int *tab, int client_pid, int *reset)
 	c = 0;
 	while (i < 8)
 	{
-		c += ft_power(2, 7 - (int) (i)) * tab[i];
+		c += ft_power(2, 7 - (int)(i)) * tab[i];
 		i++;
 	}
-	ft_printf("%c", c);
 	if (c == 0)
 	{
 		*reset = 0;
+		usleep(SLEEP_TIME);
 		kill(client_pid, SIGUSR2);
 	}
-	return ;
+	else
+		ft_printf("%c", c);
 }
 
 void	handle_sig(int sig, siginfo_t *info, void *ucontext)
@@ -61,8 +50,14 @@ void	handle_sig(int sig, siginfo_t *info, void *ucontext)
 	int			client_pid;
 	static int	tab[8];
 	static int	i = 0;
+
 	(void) ucontext;
 	client_pid = info->si_pid;
+	if (sig == SIGINT)
+	{
+		ft_printf("\nServer closed.\n");
+		exit(0);
+	}
 	if (sig == SIGUSR1)
 		tab[i++] = 0;
 	if (sig == SIGUSR2)
@@ -70,8 +65,9 @@ void	handle_sig(int sig, siginfo_t *info, void *ucontext)
 	if (i == 8)
 	{
 		i = 0;
-		ft_print_bin(tab,client_pid, &i);
+		ft_print_bin(tab, client_pid, &i);
 	}
+	usleep(SLEEP_TIME);
 	kill(client_pid, SIGUSR1);
 }
 
@@ -102,7 +98,7 @@ int	main(void)
 	action.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &action, NULL);
 	sigaction(SIGUSR2, &action, NULL);
-	//sigaction(SIGINT, &action, NULL);
+	sigaction(SIGINT, &action, NULL);
 	while(1)
 	{
 		pause();
