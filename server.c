@@ -6,7 +6,7 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:04:59 by mpitot            #+#    #+#             */
-/*   Updated: 2024/02/05 16:53:36 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/06 18:03:49 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_power(int nb, ssize_t power)
 		return (nb);
 	return (nb * ft_power(nb, power - 1));
 }
+/*
 
 static void	ft_free(int **tab)
 {
@@ -32,81 +33,47 @@ static void	ft_free(int **tab)
 		free(tab[i]);
 	free(tab);
 }
+*/
 
-void	ft_print_bin(int **tab, int client_pid)
+void	ft_print_bin(int *tab, int client_pid, int *reset)
 {
 	size_t	i;
 	int		c;
 
 	i = 0;
 	c = 0;
-	while (tab[i])
+	while (i < 8)
 	{
-		while (i < 8)
-		{
-			if (tab[i / 8][i % 8] == 1)
-				c += ft_power(2, 7 - (int) (i % 8));
-			i++;
-		}
-		ft_printf("%c", c);
+		c += ft_power(2, 7 - (int) (i)) * tab[i];
+		i++;
 	}
-	kill(client_pid, SIGUSR2);
-	return (ft_free(tab));
-}
-
-void	ft_fill_str(int sig, int client_pid, size_t	size)
-{
-	static size_t	count = 0;
-	static int		**tab = NULL;
-
-	if (count == 0)
-		tab = malloc(sizeof(char *) * (size + 1));
-	if (sig == SIGUSR1)
-		tab[count / 8][count % 8] = 0;
-	if (sig == SIGUSR2)
-		tab[count / 8][count % 8] = 1;
-	count++;
-	if (count == size * 8)
+	ft_printf("%c", c);
+	if (c == 0)
 	{
-		tab[size] = NULL;
-		ft_print_bin(tab, client_pid);
+		*reset = 0;
+		kill(client_pid, SIGUSR2);
 	}
-
-
+	return ;
 }
 
 void	handle_sig(int sig, siginfo_t *info, void *ucontext)
 {
-	static ssize_t	size_i = 31;
-	static ssize_t	size = 0;
-	static int		**tab = NULL;
-	int				client_pid;
-
+	int			client_pid;
+	static int	tab[8];
+	static int	i = 0;
 	(void) ucontext;
-	client_pid = info->si_pid;
-	if (size_i <= 0)
-	{
-		if (sig == SIGUSR2)
-			size += ft_power(2, size_i);
-		kill(client_pid, SIGUSR1);
-	}
-	else
-	{
-
-	}
-}
-
-/*void	handle_sig(int sig, siginfo_t *info, void *ucontext)
-{
-	(void) ucontext;
-	int client_pid;
 	client_pid = info->si_pid;
 	if (sig == SIGUSR1)
-		ft_printf("0");
+		tab[i++] = 0;
 	if (sig == SIGUSR2)
-		ft_printf("1");
+		tab[i++] = 1;
+	if (i == 8)
+	{
+		i = 0;
+		ft_print_bin(tab,client_pid, &i);
+	}
 	kill(client_pid, SIGUSR1);
-}*/
+}
 
 void	ft_startup(int pid)
 {
@@ -137,5 +104,7 @@ int	main(void)
 	sigaction(SIGUSR2, &action, NULL);
 	//sigaction(SIGINT, &action, NULL);
 	while(1)
+	{
 		pause();
+	}
 }

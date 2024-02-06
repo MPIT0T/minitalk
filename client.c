@@ -6,7 +6,7 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:04:56 by mpitot            #+#    #+#             */
-/*   Updated: 2024/02/05 13:51:10 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/06 14:05:33 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_send_n_wait(int bit, int pid)
 	else if (bit == 1)
 		kill(pid, SIGUSR2);
 	pause();
+//	usleep(100);
 }
 
 void	ft_convert(char c, int pid)
@@ -69,11 +70,11 @@ void	ft_send_size(ssize_t size, int pid)
 void	ft_send_all(char *str, int serv_pid)
 {
 	size_t	i;
-	ssize_t	size;
+	//ssize_t	size;
 
-	size = (ssize_t) ft_strlen(str);
+	/*size = (ssize_t) ft_strlen(str);
 	ft_kill_zero(size, serv_pid, 31);
-	ft_send_size(size + 1, serv_pid);
+	ft_send_size(size + 1, serv_pid);*/
 	i = 0;
 	while (str[i])
 	{
@@ -108,5 +109,5 @@ int	main(int argc, char **argv)
 	sigaction(SIGUSR1, &action, NULL);
 	sigaction(SIGUSR2, &action, NULL);
 	ft_send_all(argv[2], ft_atoi(argv[1]));
-	usleep(SLEEP_TIME);
+	usleep(100000);
 }
