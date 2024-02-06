@@ -6,7 +6,7 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:04:56 by mpitot            #+#    #+#             */
-/*   Updated: 2024/02/06 19:51:20 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/06 21:30:14 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,16 @@ void	ft_kill_zero(ssize_t n, int pid, ssize_t i)
 
 void	handle_sig(int sig)
 {
+	if (sig == SIGINT)
+	{
+		usleep(200);
+		ft_printf("\nProgram interrupted.\n");
+		ft_printf("You might want to restart the server,\n");
+		ft_printf("as things might be broken.\n");
+		exit(0);
+	}
 	if (sig == SIGUSR1)
 	{
-		ft_printf("bit received\n");
 		return ;
 	}
 	if (sig == SIGUSR2)
@@ -81,6 +88,7 @@ int	main(int argc, char **argv)
 	action.sa_handler = &handle_sig;
 	sigaction(SIGUSR1, &action, NULL);
 	sigaction(SIGUSR2, &action, NULL);
+	sigaction(SIGINT, &action, NULL);
 	i = 0;
 	while (argv[2][i])
 	{
