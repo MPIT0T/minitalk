@@ -6,25 +6,15 @@
 #    By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 16:13:23 by mpitot            #+#    #+#              #
-#    Updated: 2024/01/31 18:59:12 by mpitot           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/01/26 13:26:47 by mbrousse          #+#    #+#              #
-#    Updated: 2024/01/26 14:18:56 by mbrousse         ###   ########.fr        #
+#    Updated: 2024/02/07 18:21:43 by mpitot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_SERV	=	server.c
+SRC_SERV_B	=	server_bonus.c
 
 SRC_CLN		=	client.c
+SRC_CLN_B	=	client_bonus.c
 
 OBJ_SERV	=	${SRC_SERV:.c=.o}
 
@@ -40,18 +30,24 @@ CC			 =	cc
 
 FLAGS		 =	-Wall -Wextra -Werror
 
-all: ${CLIENT} ${SERVER}
+all:
+	make -C ./libft
+	make ${CLIENT}
+	make ${SERVER}
 
-%.o:%.c  ${HEADER} libft/libft.h
+%.o:%.c  ${HEADER} libft/libft.h libft/libft.a
 	${CC} ${FLAGS} -c $< -o $@
 
-${CLIENT}: ${OBJ_CLN} Makefile ${HEADER}
-	make -C ./libft
+${CLIENT}: ${OBJ_CLN} Makefile ${HEADER} libft/libft.a
 	${CC} ${FLAGS} ${OBJ_CLN} -o ${CLIENT} -L./libft -lft
 
-${SERVER}: ${OBJ_SERV} Makefile ${HEADER}
-	make -C ./libft
+${SERVER}: ${OBJ_SERV} Makefile ${HEADER} libft/libft.a
 	${CC} ${FLAGS} ${OBJ_SERV} -o ${SERVER} -L./libft -lft
+
+bonus:
+	make -C ./libft
+	make ${CLIENT} SRC_CLN="${SRC_CLN_B}"
+	make ${SERVER} SRC_SERV="${SRC_SERV_B}"
 
 clean:
 	make clean -C ./libft

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:04:56 by mpitot            #+#    #+#             */
-/*   Updated: 2024/02/06 21:30:14 by mpitot           ###   ########.fr       */
+/*   Created: 2024/02/07 19:12:36 by mpitot            #+#    #+#             */
+/*   Updated: 2024/02/07 19:12:36 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,14 @@ void	handle_sig(int sig)
 		exit(0);
 	}
 	if (sig == SIGUSR1)
+	{
 		return ;
+	}
 	if (sig == SIGUSR2)
+	{
+		ft_printf("Message transmitted succesfully\n");
 		exit(0);
+	}
 }
 
 int	main(int argc, char **argv)
