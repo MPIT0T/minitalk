@@ -6,7 +6,7 @@
 #    By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 16:13:23 by mpitot            #+#    #+#              #
-#    Updated: 2024/02/07 18:21:43 by mpitot           ###   ########.fr        #
+#    Updated: 2024/02/10 14:15:27 by mpitot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,9 @@ CC			 =	cc
 FLAGS		 =	-Wall -Wextra -Werror
 
 all:
-	make -C ./libft
-	make ${CLIENT}
-	make ${SERVER}
+	@make --no-print-directory libft.a -C ./libft
+	@make --no-print-directory ${CLIENT}
+	@make --no-print-directory ${SERVER}
 
 %.o:%.c  ${HEADER} libft/libft.h libft/libft.a
 	${CC} ${FLAGS} -c $< -o $@
@@ -45,13 +45,13 @@ ${SERVER}: ${OBJ_SERV} Makefile ${HEADER} libft/libft.a
 	${CC} ${FLAGS} ${OBJ_SERV} -o ${SERVER} -L./libft -lft
 
 bonus:
-	make -C ./libft
-	make ${CLIENT} SRC_CLN="${SRC_CLN_B}"
-	make ${SERVER} SRC_SERV="${SRC_SERV_B}"
+	@make --no-print-directory libft.a -C ./libft
+	@make --no-print-directory ${CLIENT} SRC_CLN="${SRC_CLN_B}"
+	@make --no-print-directory ${SERVER} SRC_SERV="${SRC_SERV_B}"
 
 clean:
-	make clean -C ./libft
-	rm -f ${OBJ_CLN} ${OBJ_SERV}
+	@make --no-print-directory clean -C ./libft
+	rm -f ${OBJ_CLN} ${OBJ_SERV} server_bonus.o client_bonus.o
 
 fclean: clean
 	make fclean -C ./libft

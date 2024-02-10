@@ -6,13 +6,13 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:04:59 by mpitot            #+#    #+#             */
-/*   Updated: 2024/02/07 18:50:44 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/08 11:51:37 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-char	*str;
+char	*g_str;
 
 int	ft_power(int nb, ssize_t power)
 {
@@ -53,8 +53,8 @@ void	ft_print_bin(int *tab, int client_pid)
 	c = 0;
 	while (++i < 8)
 		c += ft_power(2, 7 - (int)(i)) * tab[i];
-	str = ft_join(str, c);
-	if (!str)
+	g_str = ft_join(g_str, c);
+	if (!g_str)
 	{
 		usleep(SLEEP_TIME);
 		kill(client_pid, SIGUSR2);
@@ -62,10 +62,10 @@ void	ft_print_bin(int *tab, int client_pid)
 	}
 	if (c == 0)
 	{
-		ft_printf("%s", str);
+		ft_printf("%s", g_str);
 		usleep(SLEEP_TIME);
-		free(str);
-		str = NULL;
+		free(g_str);
+		g_str = NULL;
 		kill(client_pid, SIGUSR2);
 		return ;
 	}
@@ -81,7 +81,7 @@ void	handle_sig(int sig, siginfo_t *info, void *ucontext)
 	client_pid = info->si_pid;
 	if (sig == SIGINT)
 	{
-		free(str);
+		free(g_str);
 		ft_printf("\nServer closed.\n");
 		exit(0);
 	}

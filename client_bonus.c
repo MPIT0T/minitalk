@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/07 19:12:36 by mpitot            #+#    #+#             */
-/*   Updated: 2024/02/07 19:12:36 by mpitot           ###   ########.fr       */
+/*   Created: 2024/02/10 14:45:38 by mpitot            #+#    #+#             */
+/*   Updated: 2024/02/10 14:45:38 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,10 @@ void	handle_sig(int sig)
 		exit(0);
 	}
 	if (sig == SIGUSR1)
-	{
 		return ;
-	}
 	if (sig == SIGUSR2)
 	{
-		ft_printf("Message transmitted succesfully\n");
+		ft_printf("Message transmitted.");
 		exit(0);
 	}
 }
