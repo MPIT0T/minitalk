@@ -6,11 +6,12 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:47:57 by mpitot            #+#    #+#             */
-/*   Updated: 2024/02/10 14:47:57 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/11 15:47:26 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+# include "libft/libft.h"
+# include <signal.h>
 
 char	*g_str;
 
@@ -56,14 +57,14 @@ void	ft_print_bin(int *tab, int client_pid)
 	g_str = ft_join(g_str, c);
 	if (!g_str)
 	{
-		usleep(SLEEP_TIME);
+		usleep(100);
 		kill(client_pid, SIGUSR2);
 		exit(1);
 	}
 	if (c == 0)
 	{
 		ft_printf("%s", g_str);
-		usleep(SLEEP_TIME);
+		usleep(100);
 		free(g_str);
 		g_str = NULL;
 		kill(client_pid, SIGUSR2);
@@ -94,7 +95,7 @@ void	handle_sig(int sig, siginfo_t *info, void *ucontext)
 		i = 0;
 		ft_print_bin(tab, client_pid);
 	}
-	usleep(SLEEP_TIME);
+	usleep(100);
 	kill(client_pid, SIGUSR1);
 }
 

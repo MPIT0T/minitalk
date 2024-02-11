@@ -6,7 +6,7 @@
 #    By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 16:13:23 by mpitot            #+#    #+#              #
-#    Updated: 2024/02/10 14:15:27 by mpitot           ###   ########.fr        #
+#    Updated: 2024/02/10 15:36:48 by mpitot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,6 @@ SRC_CLN_B	=	client_bonus.c
 OBJ_SERV	=	${SRC_SERV:.c=.o}
 
 OBJ_CLN		=	${SRC_CLN:.c=.o}
-
-HEADER		=	minitalk.h
 
 SERVER		=	server
 
@@ -38,10 +36,10 @@ all:
 %.o:%.c  ${HEADER} libft/libft.h libft/libft.a
 	${CC} ${FLAGS} -c $< -o $@
 
-${CLIENT}: ${OBJ_CLN} Makefile ${HEADER} libft/libft.a
+${CLIENT}: ${OBJ_CLN} Makefile libft/libft.a
 	${CC} ${FLAGS} ${OBJ_CLN} -o ${CLIENT} -L./libft -lft
 
-${SERVER}: ${OBJ_SERV} Makefile ${HEADER} libft/libft.a
+${SERVER}: ${OBJ_SERV} Makefile libft/libft.a
 	${CC} ${FLAGS} ${OBJ_SERV} -o ${SERVER} -L./libft -lft
 
 bonus:

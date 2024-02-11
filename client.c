@@ -6,13 +6,14 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:04:56 by mpitot            #+#    #+#             */
-/*   Updated: 2024/02/06 21:30:14 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/11 15:47:26 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+# include "libft/libft.h"
+# include <signal.h>
 
-ssize_t	ft_power(int nb, ssize_t power)
+static ssize_t	ft_power(int nb, ssize_t power)
 {
 	if (power < 0)
 		return (0);
@@ -23,11 +24,11 @@ ssize_t	ft_power(int nb, ssize_t power)
 	return (nb * ft_power(nb, power - 1));
 }
 
-void	ft_convert(int c, int pid)
+static void	ft_convert(int c, int pid)
 {
 	if (c < 2)
 	{
-		usleep(SLEEP_TIME);
+		usleep(100);
 		if (c == 0)
 			kill(pid, SIGUSR1);
 		else if (c == 1)
@@ -41,13 +42,13 @@ void	ft_convert(int c, int pid)
 	}
 }
 
-void	ft_kill_zero(ssize_t n, int pid, ssize_t i)
+static void	ft_kill_zero(ssize_t n, int pid, ssize_t i)
 {
 	while (i >= 0)
 	{
 		if (ft_power(2, i) > n)
 		{
-			usleep(SLEEP_TIME);
+			usleep(100);
 			kill(pid, SIGUSR1);
 			pause();
 		}
@@ -57,7 +58,7 @@ void	ft_kill_zero(ssize_t n, int pid, ssize_t i)
 	}
 }
 
-void	handle_sig(int sig)
+static void	handle_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -92,5 +93,5 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	ft_kill_zero(0, ft_atoi(argv[1]), 7);
-	usleep(SLEEP_TIME);
+	usleep(100);
 }
