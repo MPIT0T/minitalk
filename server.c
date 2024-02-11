@@ -6,12 +6,12 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:04:59 by mpitot            #+#    #+#             */
-/*   Updated: 2024/02/08 11:51:37 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/11 15:47:26 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft/libft.h"
-# include <signal.h>
+#include "libft/libft.h"
+#include <signal.h>
 
 char	*g_str;
 

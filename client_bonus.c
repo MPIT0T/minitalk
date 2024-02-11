@@ -6,12 +6,12 @@
 /*   By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:45:38 by mpitot            #+#    #+#             */
-/*   Updated: 2024/02/10 14:47:39 by mpitot           ###   ########.fr       */
+/*   Updated: 2024/02/11 15:47:26 by mpitot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft/libft.h"
-# include <signal.h>
+#include "libft/libft.h"
+#include <signal.h>
 
 static ssize_t	ft_power(int nb, ssize_t power)
 {
