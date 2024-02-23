@@ -6,7 +6,7 @@
 #    By: mpitot <mpitot@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 14:24:49 by mpitot            #+#    #+#              #
-#    Updated: 2024/01/29 14:40:14 by mpitot           ###   ########.fr        #
+#    Updated: 2024/02/12 18:43:41 by mpitot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,11 +58,15 @@ BNS		=	ft_lstadd_back.c	\
 			ft_lstnew.c			\
 			ft_lstsize.c
 
-OBJS	=	${SRCS:.c=.o}
+OBJS	=	${SRCS:%.c=${OBJ_D}%.o}
 
-B_OBJS	=	${BNS:.c=.o}
+B_OBJS	=	${BNS:%.c=${OBJ_D}%.o}
 
-HEADER	=	libft.h
+SRC_D	=	srcs/
+
+OBJ_D	=	objs/
+
+HEADER	=	incs/libft.h
 
 NAME	=	libft.a
 
@@ -70,24 +74,28 @@ CC		=	cc
 
 AR		=	ar -rc
 
-FLAGS	=	-Wall -Wextra -Werror
+FLAGS	=	-Wall -Wextra -Werror -Iincs
 
-all		:	${NAME}
+all		:
+	@make --no-print-directory ${NAME}
 
-%.o		:	%.c ${HEADER}
+${OBJS}	:	${OBJ_D}%.o	:	${SRC_D}%.c ${HEADER}
 	${CC} ${FLAGS} -c $< -o $@
 
-${NAME}	:	${OBJS} Makefile
+${NAME}	:	${OBJ_D} ${OBJS} Makefile
 	${AR} ${NAME} ${OBJS}
 
+${OBJ_D}:
+	@mkdir -p ${OBJ_D}
+
 bonus	:
-	@make SRCS="${SRCS} ${BNS}"
+	@make ${NAME} SRCS="${SRCS} ${BNS}"
 
 clean	:
-	rm -f ${OBJS} ${B_OBJS}
+	rm -rf ${OBJ_D}
 
 fclean	:	clean
-	rm -f ${NAME} ${B_OBJS}
+	rm -f ${NAME}
 
 re		:	fclean all
 

@@ -72,7 +72,7 @@ static void	handle_sig(int sig)
 		return ;
 	if (sig == SIGUSR2)
 	{
-		ft_printf("Message transmitted.");
+		ft_printf("Done.");
 		exit(0);
 	}
 }
